@@ -27,7 +27,7 @@ let levenshtein m n =
   d0.(String.length n - 1)
 ;;
 
-let str = String.create 1500 in
+let str = Bytes.create 1500 in
 for i = 0 to 299 do
   str.[i] <- char_of_int (int_of_char 'a' + Random.int 26);
 done;

@@ -31,8 +31,8 @@ let gen_code cfile macroc md5 =
     !Options.except;
   Printf.fprintf oc "#define OCAMLCC_SP_%a\n" Printer.print_spmode
     !Options.sp_mode;
-  Printf.fprintf oc "#define OCAMLCC_RUNTIME_VERSION_%s\n"
-    (let s = String.copy !Options.runtime_version in s.[1] <- '_'; s);
+  (* Printf.fprintf oc "#define OCAMLCC_RUNTIME_VERSION_%s\n"
+    (let s = String.copy !Options.runtime_version in s.[1] <- '_'; s); *)
   Printf.fprintf oc "\n";
   Printf.fprintf oc "#if !defined(__GNUC__)\n";
   Printf.fprintf oc

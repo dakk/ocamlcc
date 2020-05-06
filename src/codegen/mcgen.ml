@@ -387,8 +387,8 @@ let compute_fun prims dbug funs fun_infos tc_set fun_id {
       | Assign n ->
         export_move (get_accu_id ind) (get_stack_id (ind + 1) n);
 
-      | Envacc n ->
-        export_gen_acc export_envacc (n - 2) ind;
+      (* | Envacc n ->
+        export_gen_acc export_envacc (n - 2) ind; *)
 
       | Pushretaddr _ ->
         ()
@@ -614,8 +614,8 @@ let compute_fun prims dbug funs fun_infos tc_set fun_id {
           export_gen_acc (fun x -> x) (ELvalue LTmp) ind;
         );
 
-      | Offsetclosure ofs ->
-        export_gen_acc export_clsr ofs ind
+      (* | Offsetclosure ofs ->
+        export_gen_acc export_clsr ofs ind *)
 
       | Getglobal n ->
         export_gen_acc export_glob n ind
@@ -886,6 +886,8 @@ let compute_fun prims dbug funs fun_infos tc_set fun_id {
 
       | Grab _ ->
         assert false
+
+      | _ -> assert false
 
     with Dead_code -> ()
   in

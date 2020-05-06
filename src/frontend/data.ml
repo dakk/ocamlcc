@@ -18,7 +18,7 @@ let dump ic index =
     with Not_found ->
       failwith "invalid bytecode executable file (DATA section not found)"
   in
-  let buf = String.create length in
+  let buf = Bytes.create length in
   seek_in ic offset;
   really_input ic buf 0 length;
   buf

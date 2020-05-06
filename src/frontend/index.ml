@@ -13,11 +13,11 @@
 open Types
 
 let parse ic =
-  let magic_str = "Caml1999X008" in
+  let magic_str = "Caml1999X026" in
   let magic_size = String.length magic_str in
   let file_length = in_channel_length ic in
-  let buf_magic = String.create magic_size in
-  let buf4 = String.create 4 in
+  let buf_magic = Bytes.create magic_size in
+  let buf4 = Bytes.create 4 in
   let read_int offset =
     seek_in ic offset;
     input_binary_int ic
@@ -25,7 +25,7 @@ let parse ic =
   let read_name offset =
     seek_in ic offset;
     really_input ic buf4 0 4;
-    match buf4 with
+    match Bytes.to_string buf4 with
       | "CODE" -> Code
       | "DLPT" -> Dlpt
       | "DLLS" -> Dlls
@@ -37,11 +37,11 @@ let parse ic =
       | _ ->
         failwith (Printf.sprintf
           "invalid bytecode executable file (unknown section name: `%s')"
-          buf4)
+          @@ Bytes.to_string buf4)
   in
   seek_in ic (file_length - magic_size);
   really_input ic buf_magic 0 magic_size;
-  if buf_magic <> magic_str then
+  if buf_magic <> Bytes.of_string magic_str then
     failwith "invalid bytecode executable file (unknown magic string)";
   let size = read_int (file_length - magic_size - 4) in
   let rec f ind next_offset rem =

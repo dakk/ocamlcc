@@ -217,7 +217,7 @@ let b2c bfile cfile stop =
     let funs = Body.create code in
   (* WARNING: compute_applies must be called before remap_stack *)
   (* WARNING: compute_applies change bytecode in place *)
-    Propag.compute_applies data funs;
+    Propag.compute_applies (Bytes.to_string data) funs;
   (* WARNING: remap_stack change bytecode in place *)
     Remapstk.remap_stack funs;
     let (ids_infos, fun_infos) = Xconst.extract_constants prims funs in
@@ -226,7 +226,7 @@ let b2c bfile cfile stop =
       Cleanfuns.clean_functions funs ids_infos fun_infos tc_set
     in
     let macroc =
-      Mcgen.gen_macroc prims data dbug funs fun_infos ids_infos tc_set
+      Mcgen.gen_macroc prims (Bytes.to_string data)  dbug funs fun_infos ids_infos tc_set
     in
     Codegen.gen_code cfile macroc md5;
     (*Printer.print_ids_infos stdout ids_infos;*)

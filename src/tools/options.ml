@@ -71,7 +71,7 @@ and verb_stop () =
 (***)
 
 let arch_of_string s =
-  match String.lowercase s with
+  match String.lowercase_ascii s with
     | "gen" -> Gen_arch
     | "none" -> None_arch
     | "x86" | "i386" | "i486" | "i586" | "i686" -> X86
@@ -88,21 +88,21 @@ let string_of_arch a =
 ;;
 
 let sigconf_of_string s =
-  match String.lowercase s with
+  match String.lowercase_ascii s with
     | "e" | "efficient" -> Efficient
     | "r" | "reactive" -> Reactive
     | _ -> invalid_arg "sigconf_of_string"
 ;;
 
 let except_of_string s =
-  match String.lowercase s with
+  match String.lowercase_ascii s with
     | "s" | "setjmp" -> Setjmp
     | "t" | "try-catch" -> Trycatch
     | _ -> invalid_arg "except_of_string"
 ;;
 
 let spmode_of_string s= 
-  match String.lowercase s with
+  match String.lowercase_ascii s with
     | "l" | "local" -> Local_sp
     | "g" | "global" -> Global_sp
     | "r" | "register" -> Register_sp

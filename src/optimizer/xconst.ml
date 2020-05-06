@@ -407,7 +407,7 @@ let compute_instr_preds body =
     let ind = i lsr 3 in
     let n = int_of_char s.[ind] in
     if n land mask <> 0 then false else (
-      s.[ind] <- char_of_int (n lor mask);
+      Bytes.set (Bytes.of_string s) ind @@ char_of_int (n lor mask);
       true
     )
   in
