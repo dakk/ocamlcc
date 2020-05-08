@@ -216,6 +216,8 @@ let parse read =
       | 143 -> [ Stop ]
       | 144 -> assert false
       | 145 -> assert false
+      | 146 -> [ Reraise ]
+      | 147 -> [ Raisenotrace ]
       | _ -> failwith (sprintf "invalid bytecode (unknown opcode: %d)" opcode)
   with End_of_file ->
     failwith "invalid bytecode (unexpected end of CODE section)"
@@ -303,6 +305,8 @@ let hcode_of_bc bc =
     | Getpubmet _ -> 77
     | Getdynmet -> 78
     | Stop -> 79
+    | Reraise -> 146
+    | Raisenotrace -> 147
 ;;
 
 let ptr_of_cond_branch cond_branch =

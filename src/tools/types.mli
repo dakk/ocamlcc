@@ -99,6 +99,8 @@ and bc =
   | Getpubmet of int * int
   | Getdynmet
   | Stop
+  | Reraise
+  | Raisenotrace
 
 and unop =
   | Boolnot

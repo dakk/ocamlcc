@@ -140,7 +140,7 @@ let interp current_closure body =
           f OUnknown stack (ind + 1)
 
         | DynamicAppterm _ | StaticAppterm _ | PartialAppterm _
-        | SpecialAppterm _ | Raise | Return _ | Stop -> ()
+        | SpecialAppterm _ | Raise | Return _ | Stop | Reraise | Raisenotrace -> ()
 
         | Restart -> assert false
         | Grab _ -> assert false

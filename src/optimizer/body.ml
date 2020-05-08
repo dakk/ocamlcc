@@ -135,7 +135,7 @@ let compute_nexts instr =
       Array.fold_left (fun acc ptr -> ptr.pointed.index :: acc) [] tbl
 
     | DynamicAppterm _ | StaticAppterm _ | PartialAppterm _ | SpecialAppterm _
-    | Return _ | Raise | Stop ->
+    | Return _ | Raise | Stop | Reraise | Raisenotrace ->
       [ ]
 ;;
 
@@ -149,7 +149,7 @@ let update_pointed map instr =
     | Setvectitem | Setstringchar | Poptrap | Checksignals | Ccall _ | Const _
     | Offsetref _ | Restart | Getmethod | Getpubmet _ | Getdynmet | Grab _
     | DynamicAppterm _ | StaticAppterm _ | PartialAppterm _ | SpecialAppterm _
-    | Return _ | Raise | Unapp _ | Binapp _ | Stop -> ()
+    | Return _ | Raise | Unapp _ | Binapp _ | Stop | Reraise | Raisenotrace -> ()
 
     | Closure _ | Closurerec _ -> ((* do not touch ptr *))
 
@@ -237,7 +237,7 @@ let update_is_pointed body =
       | Setvectitem | Setstringchar | Poptrap | Checksignals | Ccall _ | Const _
       | Offsetref _ | Restart | Getmethod | Getpubmet _ | Getdynmet | Grab _
       | DynamicAppterm _ | StaticAppterm _ | PartialAppterm _ | SpecialAppterm _
-      | Return _ | Raise | Unapp _ | Binapp _ | Stop -> ()
+      | Return _ | Raise | Unapp _ | Binapp _ | Stop | Reraise | Raisenotrace -> ()
 
       | Closure _ | Closurerec _ | Pushretaddr _ -> ((* do not touch ptr *))
 

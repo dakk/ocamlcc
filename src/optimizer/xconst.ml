@@ -161,6 +161,10 @@ let compute_ids arity body =
           let exn_id = new_cell () in
           f exn_id stack ptr.pointed.index;
           f accu stack (ind + 1);
+        | Reraise -> 
+          ()
+        | Raisenotrace ->
+          ()
         | Raise ->
           ();
         | Poptrap ->
@@ -680,6 +684,10 @@ let compute_ptrs prims body env_desc states idvd_map gc_read run_gc fun_infos
         let exn_id = get_accu_id ptr.pointed.index in
         ptr_write exn_id;
       | Raise ->
+        ptr_read (get_accu_id ind);
+      | Reraise ->
+        ptr_read (get_accu_id ind);
+      | Raisenotrace ->
         ptr_read (get_accu_id ind);
       | Poptrap ->
         ();

@@ -111,6 +111,8 @@ let rec string_of_bc bc =
     | Pushtrap ptr      -> sprintf "PUSHTRAP %d" ptr.pointed.index
     | Poptrap           -> sprintf "POPTRAP"
     | Raise             -> sprintf "RAISE"
+    | Reraise            -> sprintf "RERAISE"
+    | Raisenotrace      -> sprintf "RAISENOTRACE"
     | Checksignals      -> sprintf "CHECKSIGNALS"
     | Ccall (n, ind)    -> sprintf "CCALL %d %d" n ind
     | Const n           -> sprintf "CONST %d" n

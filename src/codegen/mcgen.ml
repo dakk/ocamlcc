@@ -777,8 +777,13 @@ let compute_fun prims dbug funs fun_infos tc_set fun_id {
         putm (PUSHTRAP (dst, ptr.pointed.addr, ukid));
         catch_list := ptr.pointed.index :: !catch_list;
 
-      | Raise ->
+      | Raise | Reraise ->
         if !Options.trace then puti (ITrace MLRaise);
+        let exn_id = get_accu_id ind in
+        let exn = export_val_desc exn_id in
+        putm (RAISE exn);
+
+      | Raisenotrace ->
         let exn_id = get_accu_id ind in
         let exn = export_val_desc exn_id in
         putm (RAISE exn);
@@ -887,7 +892,7 @@ let compute_fun prims dbug funs fun_infos tc_set fun_id {
       | Grab _ ->
         assert false
 
-      | _ -> assert false
+      | _ -> Printf.printf "Not handled: %s\n" @@ Printer.string_of_bc instr.bc; assert false
 
     with Dead_code -> ()
   in

@@ -130,7 +130,7 @@ let interp arity body =
             f bufsize stkmap (ind + 1)
 
           | DynamicAppterm _ | StaticAppterm _ | PartialAppterm _
-          | SpecialAppterm _ | Return _ | Raise | Stop -> ()
+          | SpecialAppterm _ | Return _ | Raise | Stop | Reraise | Raisenotrace -> ()
 
           | Restart -> assert false
           | Grab _ -> assert false
@@ -178,7 +178,7 @@ let remap_stack_access body stkmaps =
       | Setfloatfield _ | Pushtrap _ | Poptrap | Raise | Checksignals | Ccall _
       | Const _ | Offsetref _ | Setvectitem | Setstringchar | Branch _
       | Switch _ | Getmethod | Getpubmet _ | Getdynmet | Unapp _ | Binapp _
-      | CondBranch _ | Stop -> ()
+      | CondBranch _ | Stop | Reraise | Raisenotrace -> ()
 
       | Restart -> assert false
       | Grab _ -> assert false
